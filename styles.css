@@ -36,6 +36,7 @@
   user-select: none;
   font-family: sans-serif;
   font-size: 20vh;
+  max-width: 20vh;
   color: #f38ba8;
   line-height: 0;
 }
