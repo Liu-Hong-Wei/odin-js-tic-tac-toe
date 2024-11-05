@@ -1,10 +1,17 @@
 const GameBoard = (() => {
-  const createPlayer = (myId, myMark) => {
+  const createPlayer = (myName, myId, myMark) => {
+    const name = myName;
     const id = myId;
     const mark = myMark;
-    return { id, mark };
+    const setName = (newName) => {
+      name = newName;
+    };
+    return { name, id, mark, setName };
   };
-  const players = [createPlayer(1, "X"), createPlayer(2, "O")];
+  const players = [
+    createPlayer("player 1", 1, "X"),
+    createPlayer("player 2", 2, "O"),
+  ];
 
   let blocks = [];
   let currentPlayerNumber = 0;
@@ -58,15 +65,30 @@ const GameBoard = (() => {
 
     // someone win
     if (result) {
-      console.log(`${players[result - 1].mark} win!`);
+      alert(`${players[result - 1].mark} win!`);
+      resetGame();
     } else if (isEnd) {
       // it's a draw!
-      console.log("Draw!");
+      alert("Draw!");
+      resetGame();
     }
   };
 
-  const start = () => {
+  const resetGame = () => {
     const allBlocks = document.querySelectorAll(".block");
+    allBlocks.forEach((item) => {
+      item.textContent = "";
+    });
+    blocks = [];
+  };
+
+  const start = () => {
+    const reset = document.querySelector(".reset");
+    const allBlocks = document.querySelectorAll(".block");
+    reset.addEventListener("click", (e) => {
+      e.preventDefault();
+      resetGame();
+    });
     allBlocks.forEach((item) => {
       item.addEventListener("click", (e) => {
         e.preventDefault();
@@ -78,10 +100,7 @@ const GameBoard = (() => {
           blocks[block.id - 1] = players[currentPlayerNumber].id;
           markBlock(block);
           togglePlayer();
-          let isEnd =
-            blocks.filter((item) => {
-              return item !== undefined;
-            }).length === 9;
+          let isEnd = blocks.filter((item) => item !== undefined).length === 9;
           gameOver(calculateWinner(), isEnd);
         } else {
           console.log("The Current Block is Occupied!");

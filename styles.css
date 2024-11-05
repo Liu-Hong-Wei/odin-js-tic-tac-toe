@@ -8,6 +8,7 @@
   height: 100vh;
   background-color: #24273a;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -39,4 +40,16 @@
   max-width: 20vh;
   color: #f38ba8;
   line-height: 0;
+}
+
+.reset {
+  margin-top: 5vh;
+  width: 10vh;
+  height: 5vh;
+  background-color: #f38ba8;
+  border-radius: 1vh;
+  border: 0.5vh #f38ba8 solid;
+  box-shadow: 0 0 3vh #f38ba8;
+  font-weight: 500;
+  font-size: 2vh;
 }
